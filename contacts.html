@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Контакты и адрес в Благовещенске — [Название магазина], Благовещенск</title>
+<meta name="description" content="Продукты и товары Сибири и Алтая в Благовещенске: варенье из кедровых шишек, сбитни, сиропы, иван-чай, травы, экстракты, бижутерия.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Контакты и адрес в Благовещенске — [Название магазина], Благовещенск">
+<meta property="og:description" content="Продукты и товары Сибири и Алтая в Благовещенске. Самовывоз из Универмага Платоновых.">
+<meta name="theme-color" content="#2F5233">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=PT+Sans:wght@400;700&display=swap&subset=cyrillic" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="contacts">
+<a class="skip" href="#main">Перейти к содержимому</a>
+<div id="site-header"></div>
+<main id="main">
+
+<section class="section">
+  <div class="container">
+    <h1>Контакты</h1>
+    <div class="contacts">
+      <div class="panel">
+        <ul class="contact-list">
+          <li><b>Адрес</b><span data-cfg="place">Универмаг Платоновых</span>, г. <span data-cfg="city">Благовещенск</span>, <span data-cfg="address">ул. Амурская, 199</span></li>
+          <li><b>Режим работы</b><span data-cfg="hours">Ежедневно 10:00–19:00</span></li>
+          <li><b>Телефон</b><a data-cfg-tel href="#">8 924 140-02-16</a></li>
+          <li><b>Мессенджер</b><a data-cfg-max href="#">Написать в Max</a></li>
+        </ul>
+        <p class="note">Самовывоз. Оплата и получение заказа — в магазине.</p>
+      </div>
+      <form class="panel" id="feedback-form">
+        <h2>Написать нам</h2>
+        <div class="field"><label for="c-name">Имя</label><input id="c-name" name="name" required autocomplete="name"></div>
+        <div class="field"><label for="c-phone">Телефон</label><input id="c-phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="c-msg">Сообщение</label><textarea id="c-msg" name="message" required></textarea></div>
+        <div class="hp" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></div>
+        <button class="btn btn--block" type="submit">Отправить</button>
+        <div class="status" id="feedback-status" role="status"></div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+<div id="site-footer"></div>
+<script src="config.js"></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>

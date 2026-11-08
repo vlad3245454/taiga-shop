@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Оформление заказа — [Название магазина], Благовещенск</title>
+<meta name="description" content="Продукты и товары Сибири и Алтая в Благовещенске: варенье из кедровых шишек, сбитни, сиропы, иван-чай, травы, экстракты, бижутерия.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Оформление заказа — [Название магазина], Благовещенск">
+<meta property="og:description" content="Продукты и товары Сибири и Алтая в Благовещенске. Самовывоз из Универмага Платоновых.">
+<meta name="theme-color" content="#2F5233">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=PT+Sans:wght@400;700&display=swap&subset=cyrillic" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="order">
+<a class="skip" href="#main">Перейти к содержимому</a>
+<div id="site-header"></div>
+<main id="main">
+
+<section class="section">
+  <div class="container">
+    <h1>Ваш заказ</h1>
+    <div class="order-grid">
+      <div class="panel">
+        <div id="cart-list" aria-live="polite"><p class="empty">Загружаем…</p></div>
+        <div class="total" id="cart-total" hidden><span>Итого</span><span id="cart-sum">0</span></div>
+      </div>
+      <form class="panel" id="order-form" hidden>
+        <h2>Оформить заявку</h2>
+        <div class="note"><strong>Оплата и получение в магазине.</strong> Онлайн платить не нужно: заберите заказ в универмаге по адресу <span data-cfg="address"></span>.</div>
+        <div class="field"><label for="f-name">Ваше имя</label><input id="f-name" name="name" required autocomplete="name"></div>
+        <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" name="phone" type="tel" required autocomplete="tel" placeholder="8 900 000-00-00"></div>
+        <div class="field"><label for="f-time">Удобное время самовывоза</label><input id="f-time" name="time" placeholder="Например, завтра после 15:00"></div>
+        <div class="field"><label for="f-comment">Комментарий</label><textarea id="f-comment" name="comment"></textarea></div>
+        <div class="hp" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></div>
+        <div class="btn-row">
+          <button class="btn btn--block" type="submit">Отправить заявку</button>
+          <button class="btn btn--green btn--block" type="button" id="send-max">Отправить заказ в Max</button>
+        </div>
+        <div class="status" id="order-status" role="status"></div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+<div id="site-footer"></div>
+<script src="config.js"></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>
