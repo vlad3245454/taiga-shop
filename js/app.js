@@ -2,7 +2,7 @@
   "use strict";
   var C = window.SITE_CONFIG || {};
   var page = document.body.getAttribute("data-page") || "home";
-  var DESC = "Продукты и товары Сибири и Алтая в Благовещенске: варенье из кедровых шишек, сбитни, сиропы, иван-чай, травы, экстракты, бижутерия. Самовывоз из Универмага Платоновых.";
+  var DESC = "Таёжные лакомства из дикоросов в Благовещенске: варенье из шишек, сбитни, сиропы, конфитюры, цукаты, шоколад, мармелад, лесной чай и кофе. Самовывоз из Универмага Платоновых.";
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -85,7 +85,7 @@
   /* ---------- SEO, favicon, schema.org ---------- */
   function applySeo() {
     var base = (C.siteUrl || "").replace(/\/$/, "");
-    var titles = { home: "Продукты Сибири и Алтая в Благовещенске", catalog: "Каталог — варенье, сбитни, иван-чай", order: "Оформление заказа", about: "О нас", gallery: "Галерея", faq: "Вопросы и ответы", contacts: "Контакты и адрес в Благовещенске" };
+    var titles = { home: "Продукты Сибири и Алтая в Благовещенске", catalog: "Каталог — варенье из шишек, сбитни, чай, шоколад", order: "Оформление заказа", about: "О нас", gallery: "Галерея", faq: "Вопросы и ответы", contacts: "Контакты и адрес в Благовещенске" };
     var t = (titles[page] || "") + " — " + C.shopName;
     document.title = t;
     function meta(sel, attr, val) { var m = $(sel); if (!m) { m = document.createElement("meta"); m.setAttribute(attr[0], attr[1]); document.head.appendChild(m); } m.setAttribute("content", val); }
@@ -117,14 +117,17 @@
     return fetch("products.json").then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) { DATA = d; return d; });
   }
   function catName(id) { var c = DATA.categories.filter(function (x) { return x.id === id; })[0]; return c ? c.name : ""; }
-  function byId(id) { return DATA.products.filter(function (p) { return String(p.id) === String(id); })[0]; }
+  function byId(id) { var k = String(id).split("|")[0]; return DATA.products.filter(function (p) { return String(p.id) === k; })[0]; }
+  function priceHTML(p) { return p.price ? money(p.price) : '<span class="card__ask">Цена — в магазине</span>'; }
+  function tagHTML(p) { return p.badge === "hit" ? '<span class="tag tag--hit">Хит</span>' : p.badge === "new" ? '<span class="tag tag--new">Новинка</span>' : ""; }
+  function weightsHTML(p) { return '<div class="weights" role="group" aria-label="Фасовка">' + p.weights.map(function (w, i) { return '<button type="button" class="wchip" aria-pressed="' + (i === 0) + '" data-w="' + esc(w) + '">' + esc(w) + "</button>"; }).join("") + "</div>"; }
 
   function cardHTML(p) {
-    var demo = /демо/i.test(p.name + p.description) ? '<span class="badge-demo">демо</span>' : "";
-    return '<article class="card"><img class="card__img" loading="lazy" src="' + esc(p.image) + '" alt="' + esc(p.name) + '" data-open="' + p.id + '" width="400" height="300">' +
-      '<div class="card__body"><span class="card__cat">' + esc(catName(p.category)) + ' ' + demo + '</span>' +
+    return '<article class="card">' + tagHTML(p) + '<img class="card__img" loading="lazy" src="' + esc(p.image) + '" alt="' + esc(p.name) + '" data-open="' + p.id + '" width="560" height="560">' +
+      '<div class="card__body"><span class="card__cat">' + esc(catName(p.category)) + '</span>' +
       '<h3 class="card__title" data-open="' + p.id + '" role="button" tabindex="0">' + esc(p.name) + '</h3>' +
-      '<div class="card__foot"><div class="card__price">' + money(p.price) + '</div>' +
+      weightsHTML(p) +
+      '<div class="card__foot"><div class="card__price">' + priceHTML(p) + '</div>' +
       '<button class="btn" data-add="' + p.id + '">В заказ</button></div></div></article>';
   }
   function fail(el) { if (el) el.innerHTML = '<p class="empty">Не удалось загрузить каталог. Откройте сайт через веб-сервер (не двойным кликом по файлу) или позвоните: ' + esc(C.phone) + '.</p>'; }
@@ -144,17 +147,22 @@
     var p = byId(id); if (!p) return;
     var m = ensureModal(); lastFocus = document.activeElement;
     var img = $(".modal__img", m); img.src = p.image; img.alt = p.name;
-    $(".modal__body", m).innerHTML = '<h2>' + esc(p.name) + '</h2><p class="card__price">' + money(p.price) + '</p><p>' + esc(p.description) + '</p>' +
-      '<dl><div><dt>Состав</dt><dd>' + esc(p.composition) + '</dd></div><div><dt>Производитель</dt><dd>' + esc(p.producer) + '</dd></div></dl>' +
-      '<button class="btn btn--block" data-add="' + p.id + '">В заказ</button>';
+    $(".modal__body", m).innerHTML = tagHTML(p) + '<h2>' + esc(p.name) + '</h2><p>' + esc(p.description) + '</p>' + weightsHTML(p) +
+      '<dl><div><dt>Состав</dt><dd>' + esc(p.composition) + '</dd></div><div><dt>Срок годности</dt><dd>' + esc(p.shelfLife) + '</dd></div></dl>' +
+      '<p class="card__price">' + priceHTML(p) + '</p><button class="btn btn--block" data-add="' + p.id + '">В заказ</button>';
     m.classList.add("open"); document.body.style.overflow = "hidden";
     $(".modal__close", m).focus();
   }
   function closeModal() { var m = $("#modal"); if (m) { m.classList.remove("open"); document.body.style.overflow = ""; if (lastFocus) lastFocus.focus(); } }
 
   document.addEventListener("click", function (e) {
+    var wc = e.target.closest(".wchip");
+    if (wc) { $$(".wchip", wc.parentNode).forEach(function (b) { b.setAttribute("aria-pressed", b === wc); }); return; }
     var a = e.target.closest("[data-add]");
-    if (a) { Cart.add(a.getAttribute("data-add")); toast("Добавлено в заказ"); return; }
+    if (a) {
+      var root = a.closest(".card, .modal__body"), sel = root && $('.wchip[aria-pressed="true"]', root);
+      Cart.add(a.getAttribute("data-add") + (sel ? "|" + sel.getAttribute("data-w") : "")); toast("Добавлено в заказ"); return;
+    }
     var o = e.target.closest("[data-open]");
     if (o && DATA) openModal(o.getAttribute("data-open"));
   });
@@ -165,9 +173,15 @@
 
   /* ---------- Страницы ---------- */
   function initHome() {
-    var box = $("#popular"); if (!box) return;
+    var box = $("#popular"), cats = $("#cats-box"); if (!box) return;
     loadProducts().then(function (d) {
-      box.innerHTML = d.products.filter(function (p) { return p.popular; }).slice(0, 4).map(cardHTML).join("");
+      var hits = [];
+      d.categories.forEach(function (c) { var h = d.products.filter(function (p) { return p.category === c.id && p.badge === "hit"; })[0]; if (h) hits.push(h); });
+      box.innerHTML = hits.slice(0, 8).map(cardHTML).join("");
+      if (cats) cats.innerHTML = d.categories.map(function (c) {
+        var p = d.products.filter(function (x) { return x.category === c.id; })[0];
+        return '<a class="cat" href="catalog.html#' + c.id + '"><img loading="lazy" src="' + esc(p.image) + '" alt="" width="200" height="200"><span>' + esc(c.name) + "</span></a>";
+      }).join("");
     }).catch(function () { fail(box); });
   }
 
@@ -197,9 +211,8 @@
 
   function orderText(items, form) {
     var lines = ["Заказ с сайта «" + C.shopName + "»", ""];
-    var total = 0;
-    items.forEach(function (it, i) { var s = it.p.price * it.q; total += s; lines.push((i + 1) + ". " + it.p.name + " — " + it.q + " × " + money(it.p.price) + " = " + money(s)); });
-    lines.push("", "Итого: " + money(total), "Оплата и получение — в магазине (" + C.address + ", " + C.city + ").", "");
+        items.forEach(function (it, i) { lines.push((i + 1) + ". " + it.p.name + (it.w ? ", " + it.w : "") + " — " + it.q + " шт."); });
+    lines.push("", "Цену и оплату уточним в магазине (" + C.address + ", " + C.city + ").", "");
     lines.push("Имя: " + (form.name || "—"), "Телефон: " + (form.phone || "—"), "Время самовывоза: " + (form.time || "—"));
     if (form.comment) lines.push("Комментарий: " + form.comment);
     return lines.join("\n");
@@ -212,7 +225,7 @@
     function say(msg, ok) { status.className = "status show " + (ok ? "ok" : "err"); status.textContent = msg; }
     function draw() {
       var cart = Cart.get(); items = [];
-      Object.keys(cart).forEach(function (id) { var p = byId(id); if (p) items.push({ p: p, q: cart[id] }); });
+      Object.keys(cart).forEach(function (id) { var p = byId(id); if (p) items.push({ p: p, q: cart[id], key: id, w: id.split("|")[1] || "" }); });
       if (!items.length) {
         list.innerHTML = '<p class="empty">В заказе пока пусто.</p><p class="center"><a class="btn btn--green" href="catalog.html">Перейти в каталог</a></p>';
         form.hidden = true; $("#cart-total").hidden = true; return;
@@ -220,11 +233,10 @@
       form.hidden = false; $("#cart-total").hidden = false;
       list.innerHTML = items.map(function (it) {
         return '<div class="cart-item"><img src="' + esc(it.p.image) + '" alt="' + esc(it.p.name) + '" loading="lazy">' +
-          '<div><div class="cart-item__name">' + esc(it.p.name) + '</div><div>' + money(it.p.price) + '</div>' +
-          '<div class="qty"><button data-q="-1" data-id="' + it.p.id + '" aria-label="Меньше">−</button><span>' + it.q + '</span><button data-q="1" data-id="' + it.p.id + '" aria-label="Больше">+</button></div></div>' +
-          '<div><div class="cart-item__sum">' + money(it.p.price * it.q) + '</div><button class="remove" data-rm="' + it.p.id + '">Убрать</button></div></div>';
+          '<div><div class="cart-item__name">' + esc(it.p.name) + '</div><div>' + esc(it.w) + '</div>' +
+          '<div class="qty"><button data-q="-1" data-id="' + esc(it.key) + '" aria-label="Меньше">−</button><span>' + it.q + '</span><button data-q="1" data-id="' + esc(it.key) + '" aria-label="Больше">+</button></div></div>' +
+          '<div><button class="remove" data-rm="' + esc(it.key) + '">Убрать</button></div></div>';
       }).join("");
-      $("#cart-sum").textContent = money(items.reduce(function (s, it) { return s + it.p.price * it.q; }, 0));
     }
     list.addEventListener("click", function (e) {
       var q = e.target.closest("[data-q]"), r = e.target.closest("[data-rm]");
