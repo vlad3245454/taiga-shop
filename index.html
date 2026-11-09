@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Продукты Сибири и Алтая — [Название магазина], Благовещенск</title>
-<meta name="description" content="Продукты и товары Сибири и Алтая в Благовещенске: варенье из кедровых шишек, сбитни, сиропы, иван-чай, травы, экстракты, бижутерия.">
+<meta name="description" content="Продукты и товары Сибири и Алтая в Благовещенске: варенье из шишек, сбитни и сиропы, конфитюры, цукаты, шоколад, мармелад, лесной чай, таёжный кофе.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:title" content="Продукты Сибири и Алтая — [Название магазина], Благовещенск">
 <meta property="og:description" content="Продукты и товары Сибири и Алтая в Благовещенске. Самовывоз из Универмага Платоновых.">
-<meta name="theme-color" content="#2F5233">
+<meta name="theme-color" content="#2E6B34">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=PT+Sans:wght@400;700&display=swap&subset=cyrillic" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ruslan+Display&family=PT+Sans:wght@400;700&display=swap&subset=cyrillic" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="home">
@@ -26,32 +26,39 @@
     <div>
       <h1><span data-cfg="shopName">[Название магазина]</span></h1>
       <p class="lead" data-cfg="tagline">Дары Сибири и Алтая</p>
-      <p class="lead">Варенье из кедровых шишек, сбитни, иван-чай, травы и украшения из камней — в Благовещенске, в Универмаге Платоновых.</p>
+      <p class="lead">Варенье из шишек, сбитни, иван-чай, шоколад, цукаты и лесной кофе — таёжные лакомства из дикоросов в Благовещенске, в Универмаге Платоновых.</p>
       <div class="hero__btns">
         <a class="btn" href="catalog.html">Смотреть каталог</a>
         <a class="btn btn--ghost" href="contacts.html">Как нас найти</a>
       </div>
     </div>
-    <div class="hero__logo" data-logo></div>
+    <div class="hero__photo"><img src="assets/img/hero.jpg" alt="Подарочный набор таёжного варенья в деревянной коробке" width="900" height="600"></div>
   </div>
-  <svg class="hero__trees" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path fill="#F6EFDF" d="M0 80V50l20-30 20 30 20-40 25 45 25-35 25 40 30-50 30 55 25-30 25 35 30-45 30 50 25-35 25 40 30-55 30 60 25-30 25 35 30-45 30 50 25-35 25 40 30-50 30 55 25-30 25 35 30-45 30 50 25-40 25 40 30-55 30 60 25-30 25 35 30-45 30 50 25-35 25 40 30-50 30 55 25-35 25 40 30-45 30 50 25-35 25 40 30-50 30 55V80z"/></svg>
+  <svg class="hero__trees" hidden viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path fill="#F6EFDF" d="M0 80V50l20-30 20 30 20-40 25 45 25-35 25 40 30-50 30 55 25-30 25 35 30-45 30 50 25-35 25 40 30-55 30 60 25-30 25 35 30-45 30 50 25-35 25 40 30-50 30 55 25-30 25 35 30-45 30 50 25-40 25 40 30-55 30 60 25-30 25 35 30-45 30 50 25-35 25 40 30-50 30 55 25-35 25 40 30-45 30 50 25-35 25 40 30-50 30 55V80z"/></svg>
 </section>
 
-<section class="section" aria-labelledby="why">
+<section class="section" aria-labelledby="cats">
+  <div class="container">
+    <h2 id="cats" class="center">Разделы каталога</h2>
+    <div class="grid cats" id="cats-box"></div>
+  </div>
+</section>
+
+<section class="section section--alt" aria-labelledby="why">
   <div class="container">
     <h2 id="why" class="center">Почему у нас</h2>
     <div class="grid features">
-      <div class="feature"><span class="feature__icon" aria-hidden="true">🌲</span><h3>Сибирь и Алтай</h3><p>Продукты и товары из тайги и алтайских предгорий.</p></div>
+      <div class="feature"><span class="feature__icon" aria-hidden="true">🌲</span><h3>Сибирь и Алтай</h3><p>Дикоросы из чистых таёжных мест: шишки, ягоды, травы.</p></div>
       <div class="feature"><span class="feature__icon" aria-hidden="true">🏙️</span><h3>Редкость в городе</h3><p>В Благовещенске такого ассортимента найти непросто.</p></div>
       <div class="feature"><span class="feature__icon" aria-hidden="true">🪙</span><h3>Доступные цены</h3><p>Стараемся держать цены ниже, чем у других.</p></div>
-      <div class="feature"><span class="feature__icon" aria-hidden="true">🎁</span><h3>Для себя и в подарок</h3><p>От варенья к чаю до украшений с полудрагоценными камнями.</p></div>
+      <div class="feature"><span class="feature__icon" aria-hidden="true">🎁</span><h3>Для себя и в подарок</h3><p>Шоколад и мармелад на деревянной подложке — готовый подарок.</p></div>
     </div>
   </div>
 </section>
 
-<section class="section section--alt" aria-labelledby="pop">
+<section class="section" aria-labelledby="pop">
   <div class="container">
-    <h2 id="pop">Популярное</h2>
+    <h2 id="pop">Хиты каталога</h2>
     <div class="grid products" id="popular"><p class="empty">Загружаем товары…</p></div>
     <p class="center" style="margin-top:24px"><a class="btn btn--green" href="catalog.html">Весь каталог</a></p>
   </div>
